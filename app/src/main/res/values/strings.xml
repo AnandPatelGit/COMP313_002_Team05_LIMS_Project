@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LIMS</string>
+    <string name="header_login">Enter your Credentials</string>
+    <string name="label_username_login">Enter your Credentials</string>
+</resources>
