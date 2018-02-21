@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">LIMS</string>
     <string name="header_login">Enter your Credentials</string>
-    <string name="label_username_login">Enter your Credentials</string>
+    <string name="label_username_login">Username</string>
+    <string name="label_password_login">Password</string>
+    <string name="label_login_radiobutton1">Student</string>
+    <string name="label_login_radiobutton2">Instructor</string>
+    <string name="label_login_radiobutton3">Admin</string>
+    <string name="label_login_button">Login</string>
+    <string name="label_login_register_button">Register</string>
+    <string name="label_login">Are you a ?</string>
 </resources>
