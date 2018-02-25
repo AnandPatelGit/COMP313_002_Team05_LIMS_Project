@@ -9,4 +9,8 @@
     <string name="label_login_button">Login</string>
     <string name="label_login_register_button">Register</string>
     <string name="label_login">Are you a ?</string>
+    <string name="label_register_header">Registration</string>
+    <string name="label_register_button">Register</string>
+    <string name="label_student_header">Welcome Student</string>
+
 </resources>
