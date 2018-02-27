@@ -12,6 +12,10 @@ public class Student {
     private String emailID;
     private String password;
     private String instructor;
+    private int numberOfFiles;
+
+    public Student() {
+    }
 
     public String getFirstName() {
         return firstName;
@@ -61,6 +65,11 @@ public class Student {
         this.instructor = instructor;
     }
 
-    public Student() {
+    public int getNumberOfFiles() {
+        return numberOfFiles;
+    }
+
+    public void setNumberOfFiles(int numberOfFiles) {
+        this.numberOfFiles = numberOfFiles;
     }
 }
