@@ -12,5 +12,5 @@
     <string name="label_register_header">Registration</string>
     <string name="label_register_button">Register</string>
     <string name="label_student_header">Welcome Student</string>
-
+    <string name="label_student_folders">Available Folders for Submission</string>
 </resources>
