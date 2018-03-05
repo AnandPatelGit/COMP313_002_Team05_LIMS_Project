@@ -99,17 +99,27 @@ public class DatabaseManager extends SQLiteOpenHelper {
     //This method is called by the activity to add a row in the table
     // The following arguments should be passed:
     // values - a ContentValues object that holds row values
-    /*public boolean addRow  (ContentValues values) throws Exception {
+    public boolean addRow  (ContentValues values, String tableName) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
         // Insert the row
-        long nr= db.insert(tableNames[i], null, values);
+        long nr= db.insert(tableName, null, values);
         db.close(); //close database connection
         return nr> -1;
-    }*/
+    }
     // This method returns a stock object which holds the table row with the given id
     // The following argument should be passed:
     // id - an Object which holds the primary key value
     // fieldName - the  name of the primary key field
+
+    public boolean checkUser(String tableName, String username, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =  db.rawQuery( "select * from " + tableName + " where id = '"+username+"' AND password = '"+password+"'" , null );
+        if (cursor.moveToNext())
+            return true;
+        else
+            return false;
+    }
+
 
     //Three different users
     //User: Student

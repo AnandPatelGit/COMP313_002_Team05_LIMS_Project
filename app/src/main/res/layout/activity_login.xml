@@ -43,7 +43,7 @@
                 android:text="@string/label_username_login" />
 
             <EditText
-                android:id="@+id/editTextUsername"
+                android:id="@+id/editTextLoginUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -64,7 +64,7 @@
                 android:text="@string/label_password_login" />
 
             <EditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/editTextLoginPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.03"
@@ -132,7 +132,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonRegister"
+                android:id="@+id/buttonLoginRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

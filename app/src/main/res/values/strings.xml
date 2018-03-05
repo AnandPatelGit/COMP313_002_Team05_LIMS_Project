@@ -13,4 +13,9 @@
     <string name="label_register_button">Register</string>
     <string name="label_student_header">Welcome Student</string>
     <string name="label_student_folders">Available Folders for Submission</string>
+    <array name="Users">
+        <item>Admin</item>
+        <item>Student</item>
+        <item>Instructor</item>
+    </array>
 </resources>
