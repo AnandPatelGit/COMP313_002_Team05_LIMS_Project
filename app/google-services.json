@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1094689988843",
+    "firebase_url": "https://limps-centennial.firebaseio.com",
+    "project_id": "limps-centennial",
+    "storage_bucket": "limps-centennial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094689988843:android:4f93850b5ce2966f",
+        "android_client_info": {
+          "package_name": "com.example.anandpatelak.lims_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094689988843-ri588ner21fm2ancue73e83aujd6v52e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBov3z97AFLzJYu3wapdrypecpnc5N_d9c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
