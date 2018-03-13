@@ -20,7 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity{
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_profile);
 
         //getting firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -61,11 +61,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressDialog = new ProgressDialog(this);
 
-        btnLogin.setOnClickListener(this);
-        btnRegister.setOnClickListener(this);
-
     }
-    private void userLogin(){
+    public void register(View view){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+    public void userLogin(View view){
         String email = inputUsername.getText().toString().trim();
         String pass = inputPassword.getText().toString().trim();
 
@@ -107,17 +108,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                 });
-    }
-
-    @Override
-    public void onClick(View view) {
-        if(view == btnLogin){
-            userLogin();
-        }
-
-        if(view == btnRegister){
-            finish();
-            startActivity(new Intent(this, RegisterActivity.class));
-        }
     }
 }

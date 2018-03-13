@@ -13,9 +13,12 @@
     <string name="label_register_button">Register</string>
     <string name="label_student_header">Welcome Student</string>
     <string name="label_student_folders">Available Folders for Submission</string>
+    <string name="submit">Submit</string>
+    <string name="contactNumber">Enter Contact Number</string>
     <array name="Users">
         <item>Admin</item>
         <item>Student</item>
         <item>Instructor</item>
     </array>
+    <string name="imageUploadNote">Click the camera to upload image</string>
 </resources>
