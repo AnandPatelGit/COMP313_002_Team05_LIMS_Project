@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_login);
 
         //getting firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity{
                         if(task.isSuccessful()){
                             //start the profile activity
                             finish();
-                            startActivity(new Intent(getApplicationContext(), StudentActivity.class));
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         }
                     }
                 });

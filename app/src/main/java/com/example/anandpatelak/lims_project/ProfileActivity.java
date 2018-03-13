@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                loginAct();
             }
         });
 
@@ -71,5 +71,10 @@ public class ProfileActivity extends AppCompatActivity {
         intent.setType("Image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
+    }
+    private void loginAct()
+    {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
