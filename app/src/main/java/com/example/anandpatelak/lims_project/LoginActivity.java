@@ -1,22 +1,36 @@
 package com.example.anandpatelak.lims_project;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-    RadioButton radioBtnAdmin, radioBtnStudent, radioBtnInstructor;
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+
+    //firebase auth object
+    private FirebaseAuth firebaseAuth;
+
+    //progress dialog
+    private ProgressDialog progressDialog;
+
     EditText inputUsername,inputPassword;
     Button btnLogin,btnRegister;
-    DatabaseManager dbManager;
+
     private static String TABLE_NAME = "";
 
     @Override
@@ -24,93 +38,86 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //getting firebase auth object
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        //if the objects getcurrentuser method is not null
+        //means user is already logged in
+        /*if(firebaseAuth.getCurrentUser() != null){
+            //close this activity
+            finish();
+            //opening profile activity
+            startActivity(new Intent(getApplicationContext(), StudentActivity.class));
+        }*/
+
+
         //EditTexts Register.
         inputUsername = (EditText)findViewById(R.id.editTextLoginUsername);
         inputPassword = (EditText)findViewById(R.id.editTextLoginPassword);
-
-        //RadioButtons Register,
-        radioBtnAdmin = (RadioButton)findViewById(R.id.radioButtonAdmin);
-        radioBtnStudent = (RadioButton)findViewById(R.id.radioButtonStudent);
-        radioBtnInstructor = (RadioButton)findViewById(R.id.radioButtonInstructor);
 
         //Buttons Register
         btnLogin = (Button)findViewById(R.id.buttonLogin);
         btnRegister = (Button)findViewById(R.id.buttonLoginRegister);
 
-        //Database Initialise;
-        dbManager = new DatabaseManager(getApplicationContext());
+        progressDialog = new ProgressDialog(this);
 
-        /* Insert values
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("id","300935345");
-        contentValues.put("firstName","Anand");
-        contentValues.put("lastName","Patel");
-        contentValues.put("emailId","patelanand9594@gmail.com");
-        contentValues.put("password","anand");
-        contentValues.put("noOfFiles",0);
-        contentValues.put("noOfCourses",6);
-        try{
-            dbManager.addRow(contentValues,"tbl_student");
-            Log.d("Values Entered",null);
-            //stockManager.addRow(contentValues1);
-            //stockManager.addRow(contentValues2);
-        }catch (Exception e){
-            Toast.makeText(LoginActivity.this,
-                    e.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.i("Error: ",e.getMessage());
-        }*/
+        btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent
-                Intent intent = null;
-                if(radioBtnStudent.isChecked())
-                {
-                    TABLE_NAME = "tbl_student";
-                    if(dbManager.checkUser(TABLE_NAME,inputUsername.getText().toString(),inputPassword.getText().toString())) {
-                        intent = new Intent(getApplicationContext(), StudentActivity.class);
-                        startActivity(intent);
+    }
+    private void userLogin(){
+        String email = inputUsername.getText().toString().trim();
+        String pass = inputPassword.getText().toString().trim();
+
+
+
+        if(TextUtils.isEmpty(email)){
+            inputUsername.setError("Email is required");
+            inputUsername.requestFocus();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            inputUsername.setError("Email is not valid");
+            inputUsername.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(pass)){
+            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        //if the email and password are not empty
+        //displaying a progress dialog
+
+        progressDialog.setMessage("Logging In!! Please Wait...");
+        progressDialog.show();
+
+        //logging in the user
+        firebaseAuth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+                        //if the task is successfull
+                        if(task.isSuccessful()){
+                            //start the profile activity
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), StudentActivity.class));
+                        }
                     }
-                    else
-                        Toast.makeText(getApplicationContext(),"Check your Credentials.\n Try Register if you dont have account",Toast.LENGTH_LONG).show();
-                }
-                else if(radioBtnStudent.isChecked())
-                {
-                    TABLE_NAME = "tbl_instructor";
-                    if(dbManager.checkUser(TABLE_NAME,inputUsername.getText().toString(),inputPassword.getText().toString())) {
-                        intent = new Intent(getApplicationContext(), InstructorActivity.class);
-                        startActivity(intent);
+                });
+    }
 
-                    }
-                    else
-                        Toast.makeText(getApplicationContext(),"Check your Credentials \n Try Register if you dont have account",Toast.LENGTH_LONG).show();
+    @Override
+    public void onClick(View view) {
+        if(view == btnLogin){
+            userLogin();
+        }
 
-                }
-                else if(radioBtnAdmin.isChecked())
-                {
-                    TABLE_NAME = "tbl_admin";
-                    if(dbManager.checkUser(TABLE_NAME,inputUsername.getText().toString(),inputPassword.getText().toString())) {
-                        intent = new Intent(getApplicationContext(), AdminActivity.class);
-                        startActivity(intent);
-                    }
-                    else
-                        Toast.makeText(getApplicationContext(),"Check your Credentials \n Try Register if you dont have account",Toast.LENGTH_LONG).show();
-
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Check your Credentials \n Try Register if you dont have account",Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
-            }
-        });
+        if(view == btnRegister){
+            finish();
+            startActivity(new Intent(this, RegisterActivity.class));
+        }
     }
 }

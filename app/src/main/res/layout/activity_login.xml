@@ -78,37 +78,9 @@
             android:layout_height="73dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/label_login" />
-
             <RadioGroup
                 android:layout_width="174dp"
                 android:layout_height="match_parent">
-
-                <RadioButton
-                    android:id="@+id/radioButtonStudent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/label_login_radiobutton1" />
-
-                <RadioButton
-                    android:id="@+id/radioButtonInstructor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/label_login_radiobutton2" />
-
-                <RadioButton
-                    android:id="@+id/radioButtonAdmin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/label_login_radiobutton3" />
 
             </RadioGroup>
         </LinearLayout>
