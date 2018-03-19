@@ -14,7 +14,7 @@
     <string name="label_student_header">Welcome Student</string>
     <string name="label_student_folders">Available Folders for Submission</string>
     <string name="submit">Submit</string>
-    <string name="contactNumber">Enter Contact Number</string>
+    <string name="displayName">Enter Display name</string>
     <array name="Users">
         <item>Admin</item>
         <item>Student</item>

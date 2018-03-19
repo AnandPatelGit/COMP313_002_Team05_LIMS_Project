@@ -12,9 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.internal.InternalTokenProvider;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -25,20 +32,26 @@ import java.io.IOException;
 public class ProfileActivity extends AppCompatActivity {
     private static final int CHOOSE_IMAGE = 101;
     ImageView img;
-        EditText contactNumber;
+        EditText displayNameET;
         Button submitBtn;
 
         Uri uriProfileImage;
-
+        ProgressBar progressBar;
+        FirebaseAuth mAuth;
+        String profileImageUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        mAuth = FirebaseAuth.getInstance();
         //get views
-        contactNumber = (EditText) findViewById(R.id.etContactNumber);
+        displayNameET = (EditText) findViewById(R.id.etContactNumber);
         submitBtn = (Button) findViewById(R.id.submitButton);
         img = (ImageView) findViewById(R.id.imageView1);
+
+        progressBar = findViewById(R.id.progressbar);
+
         img.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -49,9 +62,34 @@ public class ProfileActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginAct();
+                saveUserInfo();
             }
         });
+
+    }
+
+    private void saveUserInfo() {
+        String userDisplayName = displayNameET.getText().toString().trim();
+        if(userDisplayName.isEmpty()){
+            displayNameET.setError("Contact Number Required");
+            displayNameET.requestFocus();
+            return;
+        }
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null && profileImageUrl != null)
+        {
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(userDisplayName)
+                    .setPhotoUri(Uri.parse(profileImageUrl)).build();
+            user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(ProfileActivity.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
 
     }
 
@@ -66,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 img.setImageBitmap(bitmap);
 
-                uploadImagetToFirebaseStorage();
+                uploadImageToFirebaseStorage();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -75,20 +113,26 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImagetToFirebaseStorage() {
-        StorageReference profileImage = FirebaseStorage.getInstance().getReference("profilePics/"+System.currentTimeMillis()+".jpg");
-        if(uriProfileImage != null){
-            profileImage.putFile(uriProfileImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+    private void uploadImageToFirebaseStorage() {
+        StorageReference profileImage = FirebaseStorage.getInstance().getReference("profilePics/" + System.currentTimeMillis() + ".jpg");
+        if (uriProfileImage != null) {
+            progressBar.setVisibility(View.VISIBLE);
+            profileImage.putFile(uriProfileImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                   if(task.isSuccessful()){
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressBar.setVisibility(View.GONE);
+                    profileImageUrl = taskSnapshot.getDownloadUrl().toString();
 
-                   }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
-
     private void showImagePicker(){
         Intent intent = new Intent();
         intent.setType("image/*");
