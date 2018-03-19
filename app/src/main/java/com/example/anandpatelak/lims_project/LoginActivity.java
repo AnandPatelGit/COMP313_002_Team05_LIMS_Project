@@ -62,6 +62,15 @@ public class LoginActivity extends AppCompatActivity{
         progressDialog = new ProgressDialog(this);
 
     }
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        if(firebaseAuth.getCurrentUser() != null){
+            finish();
+            startActivity(new Intent(this, ProfileActivity.class));
+        }
+    }
     public void register(View view){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
