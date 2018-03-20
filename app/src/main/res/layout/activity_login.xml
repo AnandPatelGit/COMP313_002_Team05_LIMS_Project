@@ -114,4 +114,18 @@
         </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="TextView"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:text="@string/app_name" />
+
 </RelativeLayout>
