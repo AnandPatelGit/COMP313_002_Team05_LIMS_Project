@@ -52,7 +52,7 @@
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         android:id="@+id/linearLayout"
-        android:background=""
+
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true">
 
