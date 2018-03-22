@@ -20,7 +20,15 @@
         <activity android:name=".StudentActivity" />
         <activity android:name=".InstructorActivity" />
         <activity android:name=".AdminActivity" />
-        <activity android:name=".ProfileActivity"/>
+        <activity android:name=".ProfileActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
