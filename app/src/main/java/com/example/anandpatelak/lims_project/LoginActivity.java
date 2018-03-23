@@ -21,12 +21,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity{
 
+    private static final String TAG = "MyApp";
     //firebase auth object
     private FirebaseAuth firebaseAuth;
 
+    private FirebaseDatabase firebaseData;
+    private DatabaseReference db_ref;
     //progress dialog
     private ProgressDialog progressDialog;
 
@@ -42,7 +51,8 @@ public class LoginActivity extends AppCompatActivity{
 
         //getting firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
-
+        firebaseData = FirebaseDatabase.getInstance();
+        db_ref = firebaseData.getReference("limps-centennial");
         //if the objects getcurrentuser method is not null
         //means user is already logged in
         /*if(firebaseAuth.getCurrentUser() != null){
@@ -117,10 +127,60 @@ public class LoginActivity extends AppCompatActivity{
                         
                         if(task.isSuccessful()){
                             //start the profile activity
-                            finish();
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            checkUserRole();
+
+                            //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        }
+                        else{
+                            Toast.makeText(LoginActivity.this,"Please enter valid username & password",Toast.LENGTH_LONG).show();
+                            return;
                         }
                     }
                 });
+    }
+    protected void checkUserRole(){
+        Query query = db_ref.child("users").orderByChild("emailID").equalTo(inputUsername.getText().toString().trim());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    // dataSnapshot is the "issue" node with all children with id 0
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Log.i(TAG,"======="+postSnapshot.child("emailID").getValue());
+                    Log.i(TAG, "======="+postSnapshot.child("role").getValue());
+                    Toast.makeText(LoginActivity.this,postSnapshot.child("emailID").getValue().toString(),Toast.LENGTH_LONG).show();
+                }
+                    for (DataSnapshot user : dataSnapshot.getChildren()) {
+                        // do something with the individual "issues"
+                        Users usersBean = user.getValue(Users.class);
+
+                        if (usersBean.getRole().equals("Admin")){
+                            finish();
+                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                            startActivity(intent);
+                        }
+                        if(usersBean.getRole().equals("Instructor")){
+                            finish();
+                            Intent intent = new Intent(LoginActivity.this, InstructorActivity.class);
+                            startActivity(intent);
+                        }
+                        if(usersBean.getRole().equals("Student")){
+                            finish();
+                            Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(LoginActivity.this, "Password is wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
     }
 }
