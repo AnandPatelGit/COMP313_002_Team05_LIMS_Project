@@ -1,10 +1,15 @@
 package com.example.anandpatelak.lims_project;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +41,7 @@ public class StudentActivity extends AppCompatActivity {
                 arrayList.add(value);
                 arrayAdapter = new ArrayAdapter<String>(StudentActivity.this, android.R.layout.simple_list_item_1,arrayList);
                 folderList.setAdapter(arrayAdapter);
+                folderList.setOnItemClickListener(new ListClickHandler());
             }
 
             @Override
@@ -58,6 +64,23 @@ public class StudentActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+    }
+    public class ListClickHandler implements AdapterView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
+            // TODO Auto-generated method stub
+            //TextView listText = (TextView) view.findViewById(R.id.listText);
+            String text = ((TextView)view).getText().toString();
+           // MyClass item = (MyClass) adapter.getItemAtPosition(position);
+            Intent intent = new Intent(StudentActivity.this, UploadFile.class);
+            intent.putExtra("selected-item", text);
+            startActivity(intent);
+
+        }
 
     }
 }

@@ -30,7 +30,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".CreateFolder"></activity>
+        <activity android:name=".CreateFolder" />
+        <activity android:name=".UploadFile"></activity>
     </application>
 
 </manifest>
