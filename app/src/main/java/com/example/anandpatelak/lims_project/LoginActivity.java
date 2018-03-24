@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity{
     private static final String TAG = "MyApp";
     //firebase auth object
     private FirebaseAuth firebaseAuth;
+    private String userRole;
 
     private FirebaseDatabase firebaseData;
     private DatabaseReference db_ref;
@@ -84,10 +86,34 @@ public class LoginActivity extends AppCompatActivity{
             startActivity(new Intent(this, ProfileActivity.class));
         }
     }
+
+    //METHODS TO REDIRECT USERS
+    //1.Redirect to Register
     public void register(View view){
+
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+    //2.Redirect to Admin Page
+    public void adminRedirect(){
+        //finish();
+        Intent intent = new Intent(this, AdminActivity.class);
+        startActivity(intent);
+    }
+    //2.Redirect to instructor Page
+    public void instructorRedirect(){
+        //finish();
+        Intent intent = new Intent(this, AdminActivity.class);
+        startActivity(intent);
+    }
+    //3.Redirect to Student Page
+    public void studentRedirect(){
+        //finish();
+        Intent intent = new Intent(this, StudentActivity.class);
+        startActivity(intent);
+    }
+
+
     public void userLogin(View view){
         String email = inputUsername.getText().toString().trim();
         String pass = inputPassword.getText().toString().trim();
@@ -128,7 +154,6 @@ public class LoginActivity extends AppCompatActivity{
                         if(task.isSuccessful()){
                             //start the profile activity
                             checkUserRole();
-
                             //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         }
                         else{
@@ -138,41 +163,32 @@ public class LoginActivity extends AppCompatActivity{
                     }
                 });
     }
-    protected void checkUserRole(){
-        Query query = db_ref.child("users").orderByChild("emailID").equalTo(inputUsername.getText().toString().trim());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void checkUserRole(){
+        db_ref = firebaseData.getReference("users");
+        db_ref.orderByChild("emailID").equalTo(inputUsername.getText().toString().trim()).addChildEventListener(new ChildEventListener() {
+
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Users user = dataSnapshot.getValue(Users.class);
+                System.out.println(dataSnapshot.getKey() + " is " + user.getRole()
+                +" Email: " +user.getEmailID()
+                );
+                userRole = user.getRole();
+                verifyUserRole();
+            }
 
-                    // dataSnapshot is the "issue" node with all children with id 0
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Log.i(TAG,"======="+postSnapshot.child("emailID").getValue());
-                    Log.i(TAG, "======="+postSnapshot.child("role").getValue());
-                    Toast.makeText(LoginActivity.this,postSnapshot.child("emailID").getValue().toString(),Toast.LENGTH_LONG).show();
-                }
-                    for (DataSnapshot user : dataSnapshot.getChildren()) {
-                        // do something with the individual "issues"
-                        Users usersBean = user.getValue(Users.class);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                        if (usersBean.getRole().equals("Admin")){
-                            finish();
-                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-                            startActivity(intent);
-                        }
-                        if(usersBean.getRole().equals("Instructor")){
-                            finish();
-                            Intent intent = new Intent(LoginActivity.this, InstructorActivity.class);
-                            startActivity(intent);
-                        }
-                        if(usersBean.getRole().equals("Student")){
-                            finish();
-                            Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
-                            startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(LoginActivity.this, "Password is wrong", Toast.LENGTH_LONG).show();
-                        }
-                    }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
             }
 
@@ -180,7 +196,23 @@ public class LoginActivity extends AppCompatActivity{
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
         });
+    }
+
+    private void verifyUserRole() {
+        if(userRole.equals("Admin"))
+        {
+            adminRedirect();
+        }
+        else if(userRole.equals("Student"))
+        {
+            studentRedirect();
+        }
+        else if(userRole.equals("Instructor")){
+            instructorRedirect();
+        }
+        else{
+            Toast.makeText(this,userRole,Toast.LENGTH_LONG).show();
+        }
     }
 }
