@@ -31,7 +31,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".CreateFolder" />
-        <activity android:name=".UploadFile"></activity>
+        <activity android:name=".UploadFile" />
+        <activity android:name=".InstructorFolderItems"></activity>
     </application>
 
 </manifest>

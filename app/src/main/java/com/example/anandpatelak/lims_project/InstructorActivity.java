@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.R.layout;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +44,7 @@ public class InstructorActivity extends AppCompatActivity {
                 arrayList.add(value);
                 arrayAdapter = new ArrayAdapter<String>(InstructorActivity.this, android.R.layout.simple_list_item_1,arrayList);
                 folderList.setAdapter(arrayAdapter);
+                folderList.setOnItemClickListener(new FileListClickHandler());
             }
 
             @Override
@@ -69,5 +72,20 @@ public class InstructorActivity extends AppCompatActivity {
     public void naviagateToNewFolderActivity(View view){
         Intent intent = new Intent(this, CreateFolder.class);
         startActivity(intent);
+    }
+    public class FileListClickHandler implements AdapterView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
+            // TODO Auto-generated method stub
+            //TextView listText = (TextView) view.findViewById(R.id.listText);
+            String text = ((TextView)view).getText().toString();
+            // MyClass item = (MyClass) adapter.getItemAtPosition(position);
+            Intent intent = new Intent(InstructorActivity.this, InstructorFolderItems.class);
+            intent.putExtra("selected-folder", text);
+            startActivity(intent);
+
+        }
+
     }
 }

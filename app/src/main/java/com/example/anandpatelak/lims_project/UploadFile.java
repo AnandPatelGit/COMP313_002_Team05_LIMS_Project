@@ -83,12 +83,12 @@ public class UploadFile extends AppCompatActivity {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
-        StorageReference storageRef = storage.getReference("Folders/"+tvFolderName.getText().toString().trim()+"/"+System.currentTimeMillis()+email);
+        StorageReference storageRef = storage.getReference("Folders/"+tvFolderName.getText().toString().trim()+"/"+System.currentTimeMillis()+email+".zip");
         if (filePath != null) {
 
             progressBar.setVisibility(View.VISIBLE);
-            fileRef = "Folders/"+tvFolderName.getText().toString().trim()+"/"+System.currentTimeMillis()+email;
-            fileName = System.currentTimeMillis()+email;
+            fileRef = "Folders/"+tvFolderName.getText().toString().trim()+"/"+System.currentTimeMillis();
+            fileName = System.currentTimeMillis()+".zip";
             storageRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -113,7 +113,7 @@ public class UploadFile extends AppCompatActivity {
 
     private void selectFileToUpload() {
         Intent intent = new Intent();
-        intent.setType("*/*");
+        intent.setType("zip/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select file"), CHOOSE_FILE);
     }
