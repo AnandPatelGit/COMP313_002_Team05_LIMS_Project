@@ -97,7 +97,7 @@ public class InstructorFolderItems extends AppCompatActivity {
             String text = ((TextView)view).getText().toString();
             fileName = text;
             // MyClass item = (MyClass) adapter.getItemAtPosition(position);
-            FirebaseStorage storage = FirebaseStorage.getInstance();
+            /*FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
             String fileLocation = "Folders/"+selectedFolderStr+"/"+fileName;
             StorageReference pathReference = storageRef.child(fileLocation);
@@ -108,6 +108,11 @@ public class InstructorFolderItems extends AppCompatActivity {
                     Log.e("Tuts+", "uri: " + uri.toString());
                 }
             });
+            */
+            Intent intent = new Intent(InstructorFolderItems.this, DownloadFile.class);
+            intent.putExtra("selected-file", text);
+            intent.putExtra("selected-folder", selectedFolderStr);
+            startActivity(intent);
         }
 
     }
