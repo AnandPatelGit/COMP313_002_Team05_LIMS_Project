@@ -56,6 +56,8 @@ public class DownloadFile extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 Log.e("Tuts+", "uri: " + uri.toString());
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.toString()));
+                startActivity(browserIntent);
             }
         });
     }
