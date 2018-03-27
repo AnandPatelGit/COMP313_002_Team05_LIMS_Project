@@ -49,6 +49,7 @@ public class DownloadFile extends AppCompatActivity {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         String fileLocation = "Folders/"+folderName+"/"+fileName;
+        Log.i("FileURL",fileLocation);
         StorageReference pathReference = storageRef.child(fileLocation);
         pathReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 

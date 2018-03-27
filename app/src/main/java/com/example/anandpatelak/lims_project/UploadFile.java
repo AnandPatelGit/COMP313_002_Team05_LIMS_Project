@@ -83,12 +83,14 @@ public class UploadFile extends AppCompatActivity {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
-        StorageReference storageRef = storage.getReference("Folders/"+tvFolderName.getText().toString().trim()+"/"+System.currentTimeMillis()+email+".zip");
+        fileName = System.currentTimeMillis()+".zip";
+        fileRef = "Folders/"+tvFolderName.getText().toString().trim()+"/"+fileName;
+        StorageReference storageRef = storage.getReference("Folders/"+tvFolderName.getText().toString().trim()+"/"+System.currentTimeMillis()+".zip");
         if (filePath != null) {
 
             progressBar.setVisibility(View.VISIBLE);
-            fileRef = "Folders/"+tvFolderName.getText().toString().trim()+"/"+System.currentTimeMillis();
-            fileName = System.currentTimeMillis()+".zip";
+
+
             storageRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
