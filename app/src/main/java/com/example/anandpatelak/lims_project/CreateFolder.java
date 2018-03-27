@@ -1,5 +1,6 @@
 package com.example.anandpatelak.lims_project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -38,5 +39,6 @@ public class CreateFolder extends AppCompatActivity {
 
     databaseFolders.child(id).setValue(folder);
         Toast.makeText(this, "Folder Created",Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getApplicationContext(),InstructorActivity.class));
     }
 }

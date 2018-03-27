@@ -61,6 +61,7 @@ public class UploadFile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadFile();
+
             }
         });
     }
@@ -76,6 +77,7 @@ public class UploadFile extends AppCompatActivity {
                     //progressBar.setVisibility(View.GONE);
                     //profileImageUrl = taskSnapshot.getDownloadUrl().toString();
                     Toast.makeText(UploadFile.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(),StudentActivity.class));
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
