@@ -5,39 +5,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.anandpatelak.lims_project.ProfileActivity">
+    tools:context="com.example.anandpatelak.lims_project.ProfileActivity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:background="@color/blue"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/bree_serif"
-                android:text="@string/app_name"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_light"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView1"
@@ -45,6 +33,7 @@
             android:layout_height="163dp"
             android:layout_below="@+id/imgTxtView"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="105dp"
             app:srcCompat="@drawable/camera" />
 
         <ProgressBar
@@ -72,25 +61,25 @@
             android:id="@+id/imgTxtView"
             android:layout_width="wrap_content"
             android:layout_height="27dp"
-            android:layout_below="@+id/linearLayout2"
+            android:layout_below="@+id/progressbar"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
             android:text="TextView"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:layout_editor_absoluteY="106dp"
             tools:text="@string/imageUploadNote" />
-    </RelativeLayout>
 
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
-        android:text="@string/submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etContactNumber"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/submit"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="389dp" />
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
