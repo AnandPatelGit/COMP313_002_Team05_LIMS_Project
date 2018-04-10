@@ -33,7 +33,8 @@
         <activity android:name=".CreateFolder" />
         <activity android:name=".UploadFile" />
         <activity android:name=".InstructorFolderItems" />
-        <activity android:name=".DownloadFile"></activity>
+        <activity android:name=".DownloadFile" />
+        <activity android:name=".AddSubjectActivity"></activity>
     </application>
 
 </manifest>
