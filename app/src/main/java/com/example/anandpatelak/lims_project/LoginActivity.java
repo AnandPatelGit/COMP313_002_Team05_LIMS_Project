@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity{
     //2.Redirect to instructor Page
     public void instructorRedirect(){
         //finish();
-        Intent intent = new Intent(this, InstructorActivity.class);
+        Intent intent = new Intent(this, InstructorAvailableSubjects.class);
         startActivity(intent);
     }
     //3.Redirect to Student Page

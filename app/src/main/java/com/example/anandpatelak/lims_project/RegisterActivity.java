@@ -80,10 +80,37 @@ public class RegisterActivity extends AppCompatActivity {
         String lastName = registerLastName.getText().toString().trim();
         String email = registerEmail.getText().toString().trim();
         String password = registerPassword.getText().toString().trim();
+        String confPass = registerPasswordConfirm.getText().toString().trim();
         String userRole = spinnerUser.getSelectedItem().toString();
 
+        if(TextUtils.isEmpty(firstName)){
+            registerFirstName.setError("Please enter first name");
+            registerFirstName.findFocus();
+        }
+        if(TextUtils.isEmpty(lastName)){
+            registerLastName.setError("Please enter last name");
+            registerLastName.findFocus();
+        }
+        if(TextUtils.isEmpty(email)){
+            registerEmail.setError("Please enter Email");
+            registerEmail.findFocus();
+
+        }
+        if(TextUtils.isEmpty(password)){
+            registerPassword.setError("Please enter password");
+            registerPassword.findFocus();
+
+        }
+        if(TextUtils.isEmpty(confPass)){
+            registerPasswordConfirm.setError("Please enter conformation password");
+            registerPasswordConfirm.findFocus();
+
+        }
+        if(!confPass.equals(password)){
+            Toast.makeText(this, "Password does not match",Toast.LENGTH_LONG).show();
+        }
         //check if all the fields are filled or not
-        if(!TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(lastName) && !TextUtils.isEmpty(email)){
+        else{
             String id = databaseUsers.push().getKey();
             Users user = new Users(id,firstName,lastName,email,password,userRole);
 
@@ -105,8 +132,6 @@ public class RegisterActivity extends AppCompatActivity {
             databaseUsers.child(id).setValue(user);
             Toast.makeText(this, "User Registered",Toast.LENGTH_LONG).show();
         }
-        else{
-            Toast.makeText(this, "please enter all the required fields",Toast.LENGTH_LONG).show();
-        }
+
     };
 }
