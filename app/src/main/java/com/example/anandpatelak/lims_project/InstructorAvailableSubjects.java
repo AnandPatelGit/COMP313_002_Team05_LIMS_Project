@@ -83,8 +83,8 @@ public class InstructorAvailableSubjects extends AppCompatActivity {
             //TextView listText = (TextView) view.findViewById(R.id.listText);
             String text = ((TextView)view).getText().toString();
             // MyClass item = (MyClass) adapter.getItemAtPosition(position);
-            Intent intent = new Intent(InstructorAvailableSubjects.this, InstructorFolderItems.class);
-            intent.putExtra("selected-folder", text);
+            Intent intent = new Intent(InstructorAvailableSubjects.this, InstructorActivity.class);
+            intent.putExtra("selected-subject", text);
             startActivity(intent);
 
         }

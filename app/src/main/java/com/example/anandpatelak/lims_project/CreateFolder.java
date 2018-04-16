@@ -1,5 +1,6 @@
 package com.example.anandpatelak.lims_project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class CreateFolder extends AppCompatActivity {
 
     DatabaseReference databaseFolders;
     EditText folderName;
+    String selectedFolderStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,15 @@ public class CreateFolder extends AppCompatActivity {
         folderName = (EditText) findViewById(R.id.etFolderName);
 
         databaseFolders = FirebaseDatabase.getInstance().getReference("folders");
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
+
+        if(b!=null)
+        {
+            String j =(String) b.get("selected-subject");
+
+            selectedFolderStr = j;
+        }
 
     }
     public void createFolder(View view){
@@ -33,7 +44,7 @@ public class CreateFolder extends AppCompatActivity {
     String id = databaseFolders.push().getKey();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String email = user.getEmail();
-    String subjectName = "COMP-303";
+    String subjectName = selectedFolderStr;
     Folder folder = new Folder(id,fName,email,subjectName);
 
     databaseFolders.child(id).setValue(folder);

@@ -33,19 +33,29 @@ public class InstructorActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     Button btnAddFolder, btnDisplayFolders;
     ListView folderList;
+    String selectedSubjectStr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructor);
         btnAddFolder = (Button) findViewById(R.id.addFolderButton);
         folderList = (ListView) findViewById(R.id.listView);
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
+
+        if(b!=null)
+        {
+            String j =(String) b.get("selected-subject");
+
+            selectedSubjectStr = j;
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("folders");
 
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        databaseReference.orderByChild("subjectName").equalTo(selectedSubjectStr).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String value = dataSnapshot.child("folderName").getValue(String.class);
@@ -79,6 +89,7 @@ public class InstructorActivity extends AppCompatActivity {
     }
     public void naviagateToNewFolderActivity(View view){
         Intent intent = new Intent(this, CreateFolder.class);
+        intent.putExtra("selected-subject", selectedSubjectStr);
         startActivity(intent);
     }
     public class FileListClickHandler implements AdapterView.OnItemClickListener {
