@@ -47,7 +47,14 @@ public class CreateFolder extends AppCompatActivity {
     String subjectName = selectedFolderStr;
     Folder folder = new Folder(id,fName,email,subjectName);
 
-    databaseFolders.child(id).setValue(folder);
-        Toast.makeText(this, "Folder Created",Toast.LENGTH_LONG).show();
+    if(fName.isEmpty())
+    {
+        folderName.setError("Please give folder a name");
+        folderName.findFocus();
+    }
+    else {
+        databaseFolders.child(id).setValue(folder);
+        Toast.makeText(this, "Folder Created", Toast.LENGTH_LONG).show();
+    }
     }
 }

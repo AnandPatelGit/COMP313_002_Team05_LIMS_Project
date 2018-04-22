@@ -80,6 +80,7 @@ public class AddSubjectActivity extends AppCompatActivity {
     String professorEmail = spinner.getSelectedItem().toString();
     if(TextUtils.isEmpty(subjectName)){
         etName.setError("Please Enter Name");
+        etName.findFocus();
     }
     else{
         String id = databaseReferenceSubjects.push().getKey();

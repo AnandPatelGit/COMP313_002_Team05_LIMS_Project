@@ -117,8 +117,20 @@ public class InstructorFeedbackActivity extends AppCompatActivity {
         String strFileRef = fileRef;
         Feedback feedback = new Feedback(id, email,sEmail,grade,strScore,strComment,strFileId,strFileRef);
 
-        databaseFeedback.child(id).setValue(feedback);
-        Toast.makeText(this, "Feedback submitted",Toast.LENGTH_LONG).show();
+        if(strScore.isEmpty())
+        {
+            score.setError("Please give a score");
+            score.findFocus();
+        }
+        else if(strComment.isEmpty()){
+            comments.setError("Please give a comment");
+            comments.findFocus();
+        }
+        else{
+            databaseFeedback.child(id).setValue(feedback);
+            Toast.makeText(this, "Feedback submitted",Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }
