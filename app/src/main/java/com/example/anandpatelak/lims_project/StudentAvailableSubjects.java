@@ -88,10 +88,11 @@ public class StudentAvailableSubjects extends AppCompatActivity {
         public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
             // TODO Auto-generated method stub
             //TextView listText = (TextView) view.findViewById(R.id.listText);
-            String text = ((TextView)view).getText().toString();
+            String text1 = ((TextView)view).getText().toString();
             // MyClass item = (MyClass) adapter.getItemAtPosition(position);
             Intent intent = new Intent(StudentAvailableSubjects.this, StudentActivity.class);
-            intent.putExtra("selected-subject", text);
+            intent.putExtra("selected-subject", text1);
+
             startActivity(intent);
 
         }

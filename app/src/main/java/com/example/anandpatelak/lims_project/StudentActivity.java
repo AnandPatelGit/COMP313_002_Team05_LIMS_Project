@@ -31,6 +31,7 @@ public class StudentActivity extends AppCompatActivity {
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     Button displayFeedback;
+    String selectedSubjectStr;
     ListView folderList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +40,31 @@ public class StudentActivity extends AppCompatActivity {
 
         displayFeedback = (Button) findViewById(R.id.buttonSeeFeedback);
         displayFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayFeedback();
+          @Override
+          public void onClick(View v) {
+               displayFeedback();
             }
         });
         Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
 
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
+
+        if(b!=null)
+        {
+            String j =(String) b.get("selected-subject");
+
+            selectedSubjectStr = j;
+        }
+
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("subjects");
-        folderList = (ListView) findViewById(R.id.listViewFolders);
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        databaseReference = firebaseDatabase.getReference("folders");
+        folderList = (ListView) findViewById(R.id.listViewFolders1);
+        databaseReference.orderByChild("subjectName").equalTo(selectedSubjectStr).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String value = dataSnapshot.child("subjectName").getValue(String.class);
+                String value = dataSnapshot.child("folderName").getValue(String.class);
                 arrayList.add(value);
                 arrayAdapter = new ArrayAdapter<String>(StudentActivity.this, android.R.layout.simple_list_item_1,arrayList);
                 folderList.setAdapter(arrayAdapter);
@@ -98,8 +109,9 @@ public class StudentActivity extends AppCompatActivity {
             //TextView listText = (TextView) view.findViewById(R.id.listText);
             String text = ((TextView)view).getText().toString();
            // MyClass item = (MyClass) adapter.getItemAtPosition(position);
-            Intent intent = new Intent(StudentActivity.this, StudentAvailableFolders.class);
+            Intent intent = new Intent(StudentActivity.this, UploadFile.class);
             intent.putExtra("selected-item", text);
+
             startActivity(intent);
 
         }

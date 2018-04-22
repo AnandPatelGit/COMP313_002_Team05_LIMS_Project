@@ -44,7 +44,7 @@ public class StudentAvailableFolders extends AppCompatActivity {
 
         if(b!=null)
         {
-            String j =(String) b.get("selected-item");
+            String j =(String) b.get("selected-subject1");
 
             selectedSubjectStr = j;
         }
@@ -87,8 +87,8 @@ public class StudentAvailableFolders extends AppCompatActivity {
 
     }
     public void naviagateToNewFolderActivity(View view){
-        Intent intent = new Intent(this, CreateFolder.class);
-        intent.putExtra("selected-subject", selectedSubjectStr);
+        Intent intent = new Intent(this, UploadFile.class);
+        intent.putExtra("selected-subject1", selectedSubjectStr);
         startActivity(intent);
     }
     public class FileListClickHandler implements AdapterView.OnItemClickListener {

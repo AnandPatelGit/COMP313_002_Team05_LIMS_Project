@@ -40,6 +40,7 @@
         <activity android:name=".DisplayFeedbackActivity" />
         <activity android:name=".DisplaySingleFeebackActivity" />
         <activity android:name=".StudentAvailableFolders"></activity>
+        <activity android:name=".StudentAvailableSubjects"></activity>
     </application>
 
 </manifest>
