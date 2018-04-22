@@ -35,7 +35,8 @@
         <activity android:name=".InstructorFolderItems" />
         <activity android:name=".DownloadFile" />
         <activity android:name=".AddSubjectActivity" />
-        <activity android:name=".InstructorAvailableSubjects"></activity>
+        <activity android:name=".InstructorAvailableSubjects" />
+        <activity android:name=".InstructorFeedbackActivity"></activity>
     </application>
 
 </manifest>

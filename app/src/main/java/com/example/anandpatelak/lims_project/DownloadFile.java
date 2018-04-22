@@ -17,7 +17,7 @@ public class DownloadFile extends AppCompatActivity {
 
     TextView tvFileName;
     String fileName,folderName;
-    Button btnDownload;
+    Button btnDownload,btnFeedback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +25,7 @@ public class DownloadFile extends AppCompatActivity {
 
         tvFileName = (TextView) findViewById(R.id.textViewFileName);
         btnDownload = (Button) findViewById(R.id.buttonDownload);
+        btnFeedback = (Button) findViewById(R.id.btnNavigateFeedback);
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
 
@@ -41,6 +42,15 @@ public class DownloadFile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 downloadFile();
+            }
+        });
+        btnFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DownloadFile.this, InstructorFeedbackActivity.class);
+                i.putExtra("fileName", fileName);
+                i.putExtra("folderName", folderName);
+                startActivity(i);
             }
         });
     }
