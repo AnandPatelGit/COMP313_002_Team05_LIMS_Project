@@ -36,7 +36,9 @@
         <activity android:name=".DownloadFile" />
         <activity android:name=".AddSubjectActivity" />
         <activity android:name=".InstructorAvailableSubjects" />
-        <activity android:name=".InstructorFeedbackActivity"></activity>
+        <activity android:name=".InstructorFeedbackActivity" />
+        <activity android:name=".DisplayFeedbackActivity" />
+        <activity android:name=".DisplaySingleFeebackActivity"></activity>
     </application>
 
 </manifest>

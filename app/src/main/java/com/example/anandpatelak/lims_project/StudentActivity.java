@@ -30,13 +30,20 @@ public class StudentActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
-
+    Button displayFeedback;
     ListView folderList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
+        displayFeedback = (Button) findViewById(R.id.buttonSeeFeedback);
+        displayFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayFeedback();
+            }
+        });
         Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
 
@@ -77,6 +84,12 @@ public class StudentActivity extends AppCompatActivity {
 
 
     }
+
+    private void displayFeedback() {
+        Intent i = new Intent(this, DisplayFeedbackActivity.class);
+        startActivity(i);
+    }
+
     public class ListClickHandler implements AdapterView.OnItemClickListener {
 
         @Override

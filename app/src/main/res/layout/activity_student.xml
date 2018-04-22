@@ -40,15 +40,22 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/toolbar3"
                 android:layout_alignParentStart="true"
-                android:text="@string/label_student_header"
+                android:text="Welcome Student"
                 android:textAllCaps="false"
                 android:textStyle="bold|italic" />
+
+            <Button
+                android:id="@+id/buttonSeeFeedback"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="See Feedbacks" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_student_folders"
+                android:text="Available Folders"
                 android:textStyle="bold|italic" />
 
             <ListView
