@@ -29,6 +29,7 @@ public class InstructorAvailableSubjects extends AppCompatActivity {
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     ListView folderList;
+    TextView headerTextViewInstructor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,9 @@ public class InstructorAvailableSubjects extends AppCompatActivity {
 
         folderList = (ListView) findViewById(R.id.listVIewSubjects);
 
+        headerTextViewInstructor = (TextView)findViewById(R.id.textView16) ;
+
+
         Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -44,6 +48,7 @@ public class InstructorAvailableSubjects extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
+        headerTextViewInstructor.setText("Available Course's for "+email);
 
         databaseReference.orderByChild("subjectProfessor").equalTo(email).addChildEventListener(new ChildEventListener() {
             @Override

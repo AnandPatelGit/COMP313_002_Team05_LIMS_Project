@@ -55,6 +55,7 @@ public class CreateFolder extends AppCompatActivity {
     else {
         databaseFolders.child(id).setValue(folder);
         Toast.makeText(this, "Folder Created", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getApplicationContext(),InstructorActivity.class));
     }
     }
 }

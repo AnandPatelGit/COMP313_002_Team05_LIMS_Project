@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +22,8 @@ public class  DisplaySingleFeebackActivity extends AppCompatActivity {
     String selectedFeedbackFileRef;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    TextView tvGrade, tvComment;
+    TextView tvGrade, tvComment, textViewHeaderSingleDisplay, textViewLabelGrade;
+    Button buttonBackToMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,19 +32,37 @@ public class  DisplaySingleFeebackActivity extends AppCompatActivity {
 
         tvComment = (TextView) findViewById(R.id.tvComment) ;
         tvGrade = (TextView) findViewById(R.id.tvGrade);
+        textViewHeaderSingleDisplay = (TextView) findViewById(R.id.textViewHeaderFeedback);
+        textViewLabelGrade = (TextView) findViewById(R.id.textView15);
+
+        buttonBackToMain = (Button) findViewById(R.id.buttonBack);
 
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getEmail();
+
+
+        textViewHeaderSingleDisplay.setText("Feedback for "+email);
 
         if(b!=null)
         {
             String j =(String) b.get("selected-feedback");
 
-
+            textViewLabelGrade.setText("Your Grade for"+j.replace( "Folders/", " "));
             selectedFeedbackFileRef = j;
 
 
         }
+
+        //Button Activity
+        buttonBackToMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),StudentActivity.class));
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
@@ -50,9 +71,13 @@ public class  DisplaySingleFeebackActivity extends AppCompatActivity {
 
 
 
+
         databaseReference.orderByChild("fileRef").equalTo(selectedFeedbackFileRef).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+
+
                 String grade = dataSnapshot.child("grade").getValue(String.class);
                 tvGrade.setText(grade);
                 String comment = dataSnapshot.child("comment").getValue(String.class);

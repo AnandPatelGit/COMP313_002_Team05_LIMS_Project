@@ -128,7 +128,8 @@ public class InstructorFeedbackActivity extends AppCompatActivity {
         }
         else{
             databaseFeedback.child(id).setValue(feedback);
-            Toast.makeText(this, "Feedback submitted",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Feedback submitted for "+sEmail+ "\n Course:"+strFileRef,Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(),InstructorAvailableSubjects.class));
         }
 
     }

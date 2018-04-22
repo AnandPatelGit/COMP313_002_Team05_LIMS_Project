@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,32 +9,40 @@
 
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="39dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="41dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/tvGrade"
+        android:layout_alignStart="@+id/tvGrade"
+        android:layout_below="@+id/textViewHeaderFeedback"
+        android:layout_marginTop="39dp"
         android:text="Grade"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvGrade"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.307"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeaderFeedback" />
 
     <TextView
         android:id="@+id/tvGrade"
-        android:layout_width="0dp"
-        android:layout_height="211dp"
-        android:layout_marginBottom="42dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginStart="37dp"
+        android:layout_width="345dp"
+        android:layout_height="147dp"
+        android:layout_below="@+id/textView15"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
         android:text=""
         android:textAlignment="center"
-        android:textSize="@android:dimen/thumbnail_height"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="70sp"
         app:layout_constraintBottom_toTopOf="@+id/textView17"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -41,23 +50,58 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="26dp"
+        android:layout_alignStart="@+id/tvGrade"
+        android:layout_below="@+id/tvGrade"
+        android:layout_marginTop="28dp"
         android:text="Comments:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvComment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvGrade" />
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvComment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="21dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginStart="45dp"
+        android:layout_width="280dp"
+        android:layout_height="93dp"
+        android:layout_alignStart="@+id/textView17"
+        android:layout_below="@+id/textView17"
+        android:layout_marginTop="19dp"
         android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-</android.support.constraint.ConstraintLayout>
+        tools:layout_editor_absoluteY="435dp" />
+
+    <TextView
+        android:id="@+id/textViewHeaderFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView15"
+        android:layout_marginTop="58dp"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/tvComment"
+        android:layout_below="@+id/tvComment"
+        android:layout_marginTop="14dp"
+        android:text="Back" />
+</RelativeLayout>

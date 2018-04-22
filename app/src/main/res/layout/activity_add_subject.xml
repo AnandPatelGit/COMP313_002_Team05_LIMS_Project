@@ -30,7 +30,7 @@
         android:layout_marginBottom="95dp"
         android:layout_marginEnd="70dp"
         android:ems="10"
-        android:hint="Folder Name"
+        android:hint="Course Name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/spinnerProfessor"
         app:layout_constraintEnd_toEndOf="parent"
