@@ -1,6 +1,5 @@
 package com.example.anandpatelak.lims_project;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,41 +22,46 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class StudentActivity extends AppCompatActivity {
+public class StudentAvailableFolders extends AppCompatActivity {
+
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
-    Button displayFeedback;
+    Button btnAddFolder, btnDisplayFolders;
     ListView folderList;
+    String selectedSubjectStr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student);
+        setContentView(R.layout.activity_student_available_folders);
+        //btnAddFolder = (Button) findViewById(R.id.addFolderButton);
+        folderList = (ListView) findViewById(R.id.lvFolder);
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
 
-        displayFeedback = (Button) findViewById(R.id.buttonSeeFeedback);
-        displayFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayFeedback();
-            }
-        });
+        if(b!=null)
+        {
+            String j =(String) b.get("selected-item");
+
+            selectedSubjectStr = j;
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
-
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("subjects");
-        folderList = (ListView) findViewById(R.id.listViewFolders);
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        databaseReference = firebaseDatabase.getReference("folders");
+
+        databaseReference.orderByChild("subjectName").equalTo(selectedSubjectStr).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String value = dataSnapshot.child("subjectName").getValue(String.class);
+                String value = dataSnapshot.child("folderName").getValue(String.class);
                 arrayList.add(value);
-                arrayAdapter = new ArrayAdapter<String>(StudentActivity.this, android.R.layout.simple_list_item_1,arrayList);
+                arrayAdapter = new ArrayAdapter<String>(StudentAvailableFolders.this, android.R.layout.simple_list_item_1,arrayList);
                 folderList.setAdapter(arrayAdapter);
-                folderList.setOnItemClickListener(new ListClickHandler());
+                folderList.setOnItemClickListener(new StudentAvailableFolders.FileListClickHandler());
             }
 
             @Override
@@ -81,30 +85,28 @@ public class StudentActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
-
-    private void displayFeedback() {
-        Intent i = new Intent(this, DisplayFeedbackActivity.class);
-        startActivity(i);
+    public void naviagateToNewFolderActivity(View view){
+        Intent intent = new Intent(this, CreateFolder.class);
+        intent.putExtra("selected-subject", selectedSubjectStr);
+        startActivity(intent);
     }
-
-    public class ListClickHandler implements AdapterView.OnItemClickListener {
+    public class FileListClickHandler implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> adapter, View view, int position, long arg3) {
             // TODO Auto-generated method stub
             //TextView listText = (TextView) view.findViewById(R.id.listText);
             String text = ((TextView)view).getText().toString();
-           // MyClass item = (MyClass) adapter.getItemAtPosition(position);
-            Intent intent = new Intent(StudentActivity.this, StudentAvailableFolders.class);
+            // MyClass item = (MyClass) adapter.getItemAtPosition(position);
+            Intent intent = new Intent(StudentAvailableFolders.this, UploadFile.class);
             intent.putExtra("selected-item", text);
             startActivity(intent);
 
         }
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -124,3 +126,4 @@ public class StudentActivity extends AppCompatActivity {
         return true;
     }
 }
+

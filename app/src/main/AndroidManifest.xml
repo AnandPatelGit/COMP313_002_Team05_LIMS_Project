@@ -38,7 +38,8 @@
         <activity android:name=".InstructorAvailableSubjects" />
         <activity android:name=".InstructorFeedbackActivity" />
         <activity android:name=".DisplayFeedbackActivity" />
-        <activity android:name=".DisplaySingleFeebackActivity"></activity>
+        <activity android:name=".DisplaySingleFeebackActivity" />
+        <activity android:name=".StudentAvailableFolders"></activity>
     </application>
 
 </manifest>
