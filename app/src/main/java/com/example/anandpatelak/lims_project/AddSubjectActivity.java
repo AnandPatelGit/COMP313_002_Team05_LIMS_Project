@@ -1,5 +1,6 @@
 package com.example.anandpatelak.lims_project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -87,6 +88,7 @@ public class AddSubjectActivity extends AppCompatActivity {
         Subject subject = new Subject(id,subjectName, professorEmail);
         databaseReferenceSubjects.child(id).setValue(subject);
         Toast.makeText(this, "Subject added",Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getApplicationContext(),AdminActivity.class));
     }
 
     }
