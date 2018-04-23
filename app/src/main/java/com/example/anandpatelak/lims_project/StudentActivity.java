@@ -111,7 +111,7 @@ public class StudentActivity extends AppCompatActivity {
            // MyClass item = (MyClass) adapter.getItemAtPosition(position);
             Intent intent = new Intent(StudentActivity.this, UploadFile.class);
             intent.putExtra("selected-item", text);
-
+            intent.putExtra("selected-subject1", selectedSubjectStr);
             startActivity(intent);
 
         }

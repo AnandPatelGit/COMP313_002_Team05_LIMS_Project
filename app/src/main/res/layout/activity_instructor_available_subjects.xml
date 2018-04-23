@@ -23,7 +23,7 @@
         android:layout_below="@+id/toolbar3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="Subjects Assigned"
+        android:text="Courses Assigned"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold|italic" />

@@ -39,7 +39,7 @@ public class UploadFile extends AppCompatActivity {
     ProgressBar progressBar;
     private Uri filePath;
     DatabaseReference databaseFiles;
-    String fileRef,fileName;
+    String fileRef,fileName, selectedSubjectStr,k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,8 @@ public class UploadFile extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar3);
 
+
+
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
 
@@ -60,6 +62,8 @@ public class UploadFile extends AppCompatActivity {
         {
             String j =(String) b.get("selected-item");
             tvFolderName.setText(j);
+            k = (String) b.get("selected-subject1");
+
         }
 
         imageView =(ImageView) findViewById(R.id.imageView1);
@@ -133,6 +137,7 @@ public class UploadFile extends AppCompatActivity {
     }
     public void navigateToMainActivity(){
         Intent intent = new Intent(this, StudentActivity.class);
+        intent.putExtra("selected-subject",k);
         startActivity(intent);
     }
     protected void storeFileData(){
